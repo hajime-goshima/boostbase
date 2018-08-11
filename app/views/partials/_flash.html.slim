@@ -1,0 +1,4 @@
+- flash.each do |type, msg|
+  - type = 'success' if type == 'notice'
+  javascript:
+    new Noty({ theme: 'relax', type: "#{type}", layout: 'topRight', text: "#{msg}" }).show();
