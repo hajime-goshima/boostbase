@@ -40,7 +40,6 @@ class DemosController < ApplicationController
   # PATCH/PUT /demos/1
   # PATCH/PUT /demos/1.json
   def update
-    binding.pry
     respond_to do |format|
       if @demo.update(demo_params)
         format.html { redirect_to @demo, notice: 'Demo was successfully updated.' }
