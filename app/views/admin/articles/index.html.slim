@@ -1,0 +1,31 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="book icon"
+    div class="content"
+      | 記事管理
+      .sub.header
+        | Manage articles
+
+  table.ui.table
+    thead
+      tr
+        th Title
+        th Description
+        th Slug
+        th
+        th
+        th
+
+    tbody
+      - @articles.each do |article|
+        tr
+          td = article.title
+          td = article.description
+          td = article.slug
+          td = link_to '閲覧', admin_article_path(article)
+          td = link_to '編集', edit_admin_article_path(article)
+          td = link_to '削除', admin_article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete
+
+  br
+
+  = link_to '新規記事', new_admin_article_path, class: 'ui button'

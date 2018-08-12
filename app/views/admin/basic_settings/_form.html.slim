@@ -25,17 +25,19 @@
     .ui.error.message
 
 javascript:
+  $(function(){
     $('.ui.form')
-        .form({
-            fields: {
-                'admin_basic_setting[title]': {
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: "タイトルは必須です。"
-                        }
-                    ]
-                }
-            }
-        })
+      .form({
+        fields: {
+          'admin_basic_setting[title]': {
+            rules: [
+              {
+                type: 'empty',
+                prompt: "タイトルは必須です。"
+              }
+            ]
+          }
+        }
+      })
     ;
+  });

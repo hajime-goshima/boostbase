@@ -1,0 +1,40 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="book icon"
+    div class="content"
+      | 記事管理
+      .sub.header
+        | Manage articles
+
+  h3.ui.header
+    | 記事タイトル
+  p
+    = @article.title
+
+
+  h3.ui.header
+    | コンテンツ
+  p
+    = @article.content.html_safe
+
+  h3.ui.header
+    | 説明文
+  p
+    = @article.description
+
+  h3.ui.header
+    | スラッグ
+  p
+    = @article.slug
+
+  h3.ui.header
+    | Stylesheet
+  pre
+    = @article.stylesheet_code
+
+  h3.ui.header
+    | Javascript
+  pre
+    = @article.javascript_code
+
+  => link_to '編集', edit_admin_article_path(@article), class: 'ui button'
