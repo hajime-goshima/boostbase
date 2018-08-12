@@ -1,0 +1,41 @@
+= form_for @admin_basic_setting,  html: {class: "ui form"} do |f|
+  - if @admin_basic_setting.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@admin_basic_setting.errors.count, "error")} prohibited this admin_basic_setting from being saved:"
+      ul
+        - @admin_basic_setting.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title
+      .ui.red.horizontal.label 必須
+      = t('activerecord.attributes.admin/basic_setting.title')
+    p &lt;title&gt;タグに利用されます。
+    = f.text_field :title
+
+  .field
+    = f.label :description
+    p &lt;meta name="description"&gt;タグに利用されます。
+    = f.text_area :description
+
+  .actions
+    = f.button '設定', class: 'ui primary button'
+    = f.button '元に戻す', class: 'ui reset button', type: 'button'
+    = f.button 'クリア', class: 'ui clear button', type: 'button'
+    .ui.error.message
+
+javascript:
+    $('.ui.form')
+        .form({
+            fields: {
+                'admin_basic_setting[title]': {
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: "タイトルは必須です。"
+                        }
+                    ]
+                }
+            }
+        })
+    ;

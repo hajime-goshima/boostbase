@@ -1,0 +1,23 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="settings icon"
+    div class="content"
+      | サイト基本設定
+      .sub.header
+        | Manage site settings
+
+  h3.ui.header
+    | サイトタイトル
+    .sub.header
+      | &lt;title&gt;タグに利用されます。
+  p
+    = @admin_basic_setting.title
+
+  h3.ui.header
+    | サイト説明文
+    .sub.header
+      | &lt;meta name="description"&gt;タグに利用されます。
+  p
+    = @admin_basic_setting.description
+
+  => link_to '変更する', edit_admin_basic_setting_path(@admin_basic_setting), class: 'ui button'

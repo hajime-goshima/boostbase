@@ -1,0 +1,14 @@
+.admin_sidemenu
+    .ui.left.fixed.vertical.menu
+        .item
+            = link_to '/', class: "logo" do
+                = "BoostBase Admin"
+        .item
+            = link_to '#' do
+                i.home.icon
+                = "ホーム"
+        .item
+            = link_to admin_basic_settings_path do
+                i.settings.icon
+                = "サイト基本設定"
+        .item Sign-in

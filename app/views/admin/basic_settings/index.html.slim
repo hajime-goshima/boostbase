@@ -1,0 +1,23 @@
+h1 Listing admin_basic_settings
+
+table
+  thead
+    tr
+      th Title
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @admin_basic_settings.each do |admin_basic_setting|
+      tr
+        td = admin_basic_setting.title
+        td = admin_basic_setting.description
+        td = link_to 'Show', admin_basic_setting
+        td = link_to 'Edit', edit_admin_basic_setting_path(admin_basic_setting)
+        td = link_to 'Destroy', admin_basic_setting, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Basic setting', new_admin_basic_setting_path

@@ -12,5 +12,7 @@
 //
 //= require rails-ujs
 //= require activestorage
+//= require jquery/dist/jquery.js
+//= require semantic/semantic.js
 //= require noty/lib/noty.js
 //= require_tree .

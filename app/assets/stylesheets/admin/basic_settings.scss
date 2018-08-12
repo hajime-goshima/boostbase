@@ -1,0 +1,16 @@
+// semantic
+@font-face {
+    font-family: 'Icons';
+    src: url("/fonts/icons.woff2") format('woff');
+}
+// admin_sidemenu
+.admin_sidemenu {
+    .logo {
+        color: black;
+        font-weight: 900;
+    }
+}
+// admin_container
+.admin-container {
+    padding: 15px 0;
+}

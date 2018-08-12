@@ -1,0 +1,9 @@
+---
+ja:
+  activerecord:
+    models:
+      admin/basic_setting: 'サイト基本設定'
+    attributes:
+      admin/basic_setting:
+        title: 'サイトタイトル'
+        description: 'サイト説明文'
