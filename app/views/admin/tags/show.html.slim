@@ -1,0 +1,24 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="tag icon"
+    div class="content"
+      | タグ管理
+      .sub.header
+        | Manage tags
+
+  h3.ui.header
+    | タイトル
+  p
+    = @tag.title
+
+  h3.ui.header
+    | 説明文
+  p
+    = @tag.description
+
+  h3.ui.header
+    | スラッグ
+  p
+    = @tag.slug
+
+  => link_to '編集', edit_admin_tag_path(@tag), class: 'ui button'

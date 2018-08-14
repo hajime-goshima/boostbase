@@ -1,0 +1,80 @@
+- url = @category.new_record? ? admin_categories_path : admin_category_path
+= form_for @category, url: url, html: {class: 'ui form'} do |f|
+  - if @category.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@category.errors.count, "error")} prohibited this category from being saved:"
+      ul
+        - @category.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title do
+      .ui.red.horizontal.label 必須
+      = t('activerecord.attributes.category.title')
+    = f.text_field :title
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :slug
+    = f.text_field :slug
+  .field
+    = f.label :parent_id, '親カテゴリ'
+    = f.hidden_field :parent_id
+    #category_selector.ui.dropdown.button
+      span.text
+        | 親カテゴリ
+      i.dropdown.icon
+      .menu
+        - Category.roots.each do |category|
+          .item data-id=(category.id)
+            = category.title
+            - if category.children.exists?
+              i.dropdown.icon
+              .menu
+                - category.children.each do |category_child|
+                  .item data-id=(category_child.id)
+                    = category_child.title
+                    - if category_child.children.exists?
+                      i.dropdown.icon
+                      .menu
+                        - category_child.children.each do |category_grand_child|
+                          .item data-id=(category_grand_child.id)
+                            = category_grand_child.title
+
+
+
+
+
+  .actions
+    = f.button '保存', class: 'ui primary button'
+    = f.button '元に戻す', class: 'ui reset button', type: 'button'
+    = f.button 'クリア', class: 'ui clear button', type: 'button'
+javascript:
+  $(function(){
+
+    // Form Validation
+    $('.ui.form').form({
+      fields: {
+        'category[title]': {
+          rules: [
+            {
+              type: 'empty',
+              prompt: "タイトルは必須です。"
+            }
+          ]
+        }
+      }
+    });
+
+    $('.ui.dropdown')
+      .dropdown({allowCategorySelection: true})
+    ;
+
+    $('#category_selector').on('click', '.item', function(e){
+        var id = $(this).data('id');
+        $('#category_parent_id').val(id);
+        e.stopPropagation();
+    });
+
+  });

@@ -1,0 +1,31 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="tag icon"
+    div class="content"
+      | タグ管理
+      .sub.header
+        | Manage tags
+
+  table.ui.table
+    thead
+      tr
+        th タイトル
+        th 説明文
+        th スラッグ
+        th
+        th
+        th
+
+    tbody
+      - @tags.each do |tag|
+        tr
+          td = tag.title
+          td = tag.description
+          td = tag.slug
+          td = link_to 'Show', admin_tag_path(tag)
+          td = link_to 'Edit', edit_admin_tag_path(tag)
+          td = link_to 'Destroy', admin_tag_path(tag), data: { confirm: '本当によろしいですか？' }, method: :delete
+
+  br
+
+  = link_to '新規タグ', new_admin_tag_path, class: 'ui button'

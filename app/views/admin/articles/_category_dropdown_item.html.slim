@@ -1,0 +1,8 @@
+- category = category
+i.dropdown.icon
+.menu
+  - category.children.each do |child|
+    .item data-value=child.id data-text=child.title
+      = child.title
+      - if child.children.exists?
+        = render partial: 'admin/articles/category_dropdown_item', locals: {category: child}

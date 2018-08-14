@@ -25,9 +25,22 @@ class Admin::ArticlesController < AdminController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-
     respond_to do |format|
       if @article.save
+
+        # set tags to article
+
+        if params.key?(:tags) && params[:tags].present?
+          params[:tags].each do |tag_id|
+            begin
+              @article.tags << Tag.find(tag_id)
+            rescue ActiveRecord::RecordNotFound => e
+              Rails.logger.error(e)
+              Rails.logger.error("Tag#id=#{tag_id}")
+            end
+          end
+        end
+
         format.html { redirect_to admin_article_path(@article), notice: 'Article was successfully created.' }
         format.json { render :show, status: :created, location: @article }
       else
@@ -41,7 +54,22 @@ class Admin::ArticlesController < AdminController
   # PATCH/PUT /articles/1.json
   def update
     respond_to do |format|
+      @article.tags.delete_all
       if @article.update(article_params)
+
+        # set tags to article
+
+        if params.key?(:tags) && params[:tags].present?
+          params[:tags].each do |tag_id|
+            begin
+              @article.tags << Tag.find(tag_id)
+            rescue ActiveRecord::RecordNotFound => e
+              Rails.logger.error(e)
+              Rails.logger.error("Tag#id=#{tag_id}")
+            end
+          end
+        end
+
         format.html { redirect_to admin_article_path(@article), notice: 'Article was successfully updated.' }
         format.json { render :show, status: :ok, location: @article }
       else
@@ -62,13 +90,14 @@ class Admin::ArticlesController < AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def article_params
-      params.require(:article).permit(:title, :content, :description, :slug, :stylesheet_code, :javascript_code)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def article_params
+    params.require(:article).permit(:title, :content, :description, :slug, :stylesheet_code, :javascript_code, :category_id)
+  end
 end

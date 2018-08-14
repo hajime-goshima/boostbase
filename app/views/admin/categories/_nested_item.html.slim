@@ -1,0 +1,18 @@
+- category = category
+.item
+  i.folder.icon
+  .content
+    .header
+      = link_to category.title, admin_category_path(category)
+      .ui.dropdown
+        i.angle.down.icon
+        .menu
+          = link_to '閲覧', admin_category_path(category), class: 'item'
+          = link_to '編集', edit_admin_category_path(category), class: 'item'
+          = link_to '削除', admin_category_path(category), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'item'
+    .description
+      = category.description
+    - if category.children.count > 0
+      - category.children.each do |child|
+        .list
+          = render partial: 'nested_item', locals: {category: child}

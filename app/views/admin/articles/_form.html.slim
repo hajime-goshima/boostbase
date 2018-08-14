@@ -1,3 +1,4 @@
+
 - url = @article.new_record? ? admin_articles_path : admin_article_path
 = form_for @article, url: url, html: {class: 'ui form'} do |f|
   - if @article.errors.any?
@@ -8,7 +9,9 @@
           li = message
 
   .field
-    = f.label :title
+    = f.label :title do
+      .ui.red.horizontal.label 必須
+      = t('activerecord.attributes.article.title')
     = f.text_field :title
   .field
     = f.label :content
@@ -25,39 +28,73 @@
   .field
     = f.label :javascript_code
     = f.text_area :javascript_code
-  .actions
+  .field
+    = f.label :category_id
+    = f.hidden_field :category_id
+    #category_selector.ui.dropdown.button
+      span.text カテゴリ選択
+      i.dropdown.icon
+      - if Category.roots.count > 0
+        .menu
+          - Category.roots.each do |category|
+            .item data-value=category.id data-text=category.title
+              = category.title
+              - if category.children.exists?
+                = render partial: 'admin/articles/category_dropdown_item', locals: {category: category}
+  .field
+    = label_tag 'tags', 'タグ'
+    = select_tag 'tags', options_from_collection_for_select(Tag.all, :id, :title, @article.tags.pluck(:id)), multiple: true, class: 'ui fluid search dropdown', id: 'tag_selector'
+  .ui.segment
     = f.button '保存', class: 'ui primary button'
     = f.button '元に戻す', class: 'ui reset button', type: 'button'
     = f.button 'クリア', class: 'ui clear button', type: 'button'
     .ui.error.message
 javascript:
-    $(function(){
+  $(function(){
 
-      // Form Validation
-      $('.ui.form').form({
-        fields: {
-          'article[title]': {
-            rules: [
-              {
-                type: 'empty',
-                prompt: "タイトルは必須です。"
-              }
-            ]
-          }
-        }
-      });
-
-      // KCEditor
-      ClassicEditor.create(document.querySelector('#article_content'), {
-        simpleUpload: {
-          uploadUrl: {
-            url: '/upload',
-            headers: {
-              'X-CSRF-Token': "#{form_authenticity_token}"
+    // Form Validation
+    $('.ui.form').form({
+      fields: {
+        'article[title]': {
+          rules: [
+            {
+              type: 'empty',
+              prompt: "タイトルは必須です。"
             }
+          ]
+        }
+      }
+    });
+
+    // KCEditor
+    ClassicEditor.create(document.querySelector('#article_content'), {
+      simpleUpload: {
+        uploadUrl: {
+          url: '/upload',
+          headers: {
+            'X-CSRF-Token': "#{form_authenticity_token}"
           }
         }
-      }).catch(error => {
-        console.error(error);
-      });
+      }
+    }).catch(error => {
+      console.error(error);
     });
+
+    // Category
+    $('#category_selector')
+        .dropdown(
+          {
+              allowCategorySelection: true,
+              action: function (text, value) {
+                  //alert(text + "/" + value);
+                  $('#article_category_id').val(value);
+                  $(this).dropdown('set selected',value);
+              },
+              direction: 'upward'
+          }
+        )
+        .dropdown(
+            'set selected', $('#article_category_id').val()
+        );
+    $('#tag_selector').dropdown();
+  });

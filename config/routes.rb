@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :basic_settings, except: :destroy
     resources :articles
+    resources :tags
+    resources :categories
   end
   resources :demos
   post '/upload', to: 'demos#upload', as: 'upload'

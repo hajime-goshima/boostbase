@@ -15,3 +15,13 @@ ja:
         slug: 'スラッグ'
         stylesheet_code: 'CSS'
         javascript_code: 'Javascript'
+        category_id: 'カテゴリ'
+      category:
+        title: 'タイトル'
+        description: '説明文'
+        slug: 'スラッグ'
+        parent_id: '親カテゴリ'
+      tag:
+        title: 'タイトル'
+        description: '説明文'
+        slug: 'スラッグ'

@@ -1,6 +1,6 @@
 .ui.container.admin-container
   h1 class="ui header"
-    i class="book icon"
+    i class="edit icon"
     div class="content"
       | 記事管理
       .sub.header
@@ -9,9 +9,9 @@
   table.ui.table
     thead
       tr
-        th Title
-        th Description
-        th Slug
+        th タイトル
+        th スラッグ
+        th カテゴリ
         th
         th
         th
@@ -20,8 +20,8 @@
       - @articles.each do |article|
         tr
           td = article.title
-          td = article.description
           td = article.slug
+          td = article.category.try(:title)
           td = link_to '閲覧', admin_article_path(article)
           td = link_to '編集', edit_admin_article_path(article)
           td = link_to '削除', admin_article_path(article), data: { confirm: '本当によろしいですか？' }, method: :delete

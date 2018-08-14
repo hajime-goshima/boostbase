@@ -1,6 +1,6 @@
 .ui.container.admin-container
   h1 class="ui header"
-    i class="book icon"
+    i class="edit icon"
     div class="content"
       | 記事管理
       .sub.header
@@ -15,7 +15,7 @@
   h3.ui.header
     | コンテンツ
   p
-    = @article.content.html_safe
+    = @article.content.try(:html_safe)
 
   h3.ui.header
     | 説明文
@@ -37,4 +37,15 @@
   pre
     = @article.javascript_code
 
+  h3.ui.header
+    | カテゴリ
+  p
+    = @article.category.try(:title)
+
+  h3.ui.header
+    | タグ
+  p
+    - @article.tags.each do |tag|
+      = tag.title
+      br
   => link_to '編集', edit_admin_article_path(@article), class: 'ui button'

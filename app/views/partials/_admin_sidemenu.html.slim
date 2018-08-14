@@ -6,13 +6,25 @@
     .item
       = link_to '#' do
         i.home.icon
+        = " "
         = "ホーム"
     .item
       = link_to admin_basic_settings_path do
         i.settings.icon
+        = " "
         = "サイト基本設定"
     .item
       = link_to admin_articles_path do
-        i.book.icon
+        i.edit.icon
+        = " "
         = "記事管理"
-    .item Sign-in
+    .item
+      = link_to admin_categories_path do
+        i.sitemap.icon
+        = " "
+        = "カテゴリ管理"
+    .item
+      = link_to admin_tags_path do
+        i.tags.icon
+        = " "
+        = "タグ管理"

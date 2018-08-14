@@ -1,0 +1,28 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="sitemap icon"
+    div class="content"
+      | カテゴリ管理
+      .sub.header
+        | Manage categories
+  h3.ui.header
+    | タイトル
+  p
+    = @category.title
+
+  h3.ui.header
+    | 説明文
+  p
+    = @category.description
+
+  h3.ui.header
+    | スラッグ
+  p
+    = @category.slug
+
+  h3.ui.header
+    | 親カテゴリ
+  p
+    = @category.parent.title if @category.parent.present?
+
+  => link_to '編集', edit_admin_category_path(@category), class: 'ui button'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_12_162430) do
+ActiveRecord::Schema.define(version: 2018_08_13_095411) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2018_08_12_162430) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "article_tag_assocs", force: :cascade do |t|
+    t.integer "article_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_tag_assocs_on_article_id"
+    t.index ["tag_id"], name: "index_article_tag_assocs_on_tag_id"
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
     t.text "content"
@@ -50,6 +59,24 @@ ActiveRecord::Schema.define(version: 2018_08_12_162430) do
     t.boolean "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "parent_id"
+  end
+
+  create_table "category_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id", null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations", null: false
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "category_anc_desc_idx", unique: true
+    t.index ["descendant_id"], name: "category_desc_idx"
   end
 
   create_table "demos", force: :cascade do |t|
@@ -60,6 +87,14 @@ ActiveRecord::Schema.define(version: 2018_08_12_162430) do
   end
 
   create_table "image_resources", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

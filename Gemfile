@@ -55,3 +55,6 @@ gem 'pry-byebug'
 
 # Slim
 gem 'slim-rails'
+
+# Tree Structure
+gem 'closure_tree'

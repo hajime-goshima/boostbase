@@ -1,0 +1,59 @@
+.ui.container.admin-container
+  h1 class="ui header"
+    i class="sitemap icon"
+    div class="content"
+      | カテゴリ管理
+      .sub.header
+        | Manage categories
+
+  /table.ui.table
+  /  thead
+  /    tr
+  /      th タイトル
+  /      th 説明文
+  /      th スラッグ
+  /      th
+  /      th
+  /      th
+  /
+  /  tbody
+  /    - @categories.each do |category|
+  /      tr
+  /        td = category.title
+  /        td = category.description
+  /        td = category.slug
+  /        td = link_to 'Show', admin_category_path(category)
+  /        td = link_to 'Edit', edit_admin_category_path(category)
+  /        td = link_to 'Destroy', admin_category_path(category), data: { confirm: '本当によろしいですか？' }, method: :delete
+
+  .ui.list
+    - Category.roots.each do |category|
+      .item
+        i.folder.full.icon
+        .content
+          .header
+            = link_to category.title, admin_category_path(category)
+            .ui.dropdown
+              i.angle.down.icon
+              .menu
+                = link_to '閲覧', admin_category_path(category), class: 'item'
+                = link_to '編集', edit_admin_category_path(category), class: 'item'
+                = link_to '削除', admin_category_path(category), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'item'
+          .description
+            = category.description
+          - if category.children.count > 0
+            .list
+              - category.children.each do |child|
+                = render partial: 'nested_item', locals: {category: child}
+
+
+  br
+
+  = link_to '新規カテゴリ', new_admin_category_path, class: 'ui button'
+
+javascript:
+  $(function(){
+    $('.ui.dropdown')
+        .dropdown({allowCategorySelection: true})
+    ;
+  });
