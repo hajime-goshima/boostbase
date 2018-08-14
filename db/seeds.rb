@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# ユーザ
+user = Admin::User.create(email: 'test01@test.com', password: 'test01') # localhost only
 # 記事
 article = Article.create(title: '記事１', description: '記事１説明')
 # カテゴリ（３世代）

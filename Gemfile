@@ -58,3 +58,6 @@ gem 'slim-rails'
 
 # Tree Structure
 gem 'closure_tree'
+
+# Auth
+gem 'devise'
