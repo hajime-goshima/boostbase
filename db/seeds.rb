@@ -22,6 +22,7 @@ tag2 = Tag.create(title: 'タグ２', description: 'タグ２説明')
 tag3 = Tag.create(title: 'タグ３', description: 'タグ３説明')
 # 記事-カテゴリリレーション
 article.category = category1
+article.save
 # 記事-タグリレーション
 article.tags << tag1
 article.tags << tag2
