@@ -96,13 +96,6 @@ ActiveRecord::Schema.define(version: 2018_08_14_081008) do
     t.index ["descendant_id"], name: "category_desc_idx"
   end
 
-  create_table "demos", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "image_resources", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
