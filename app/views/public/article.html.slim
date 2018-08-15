@@ -1,0 +1,4 @@
+- provide(:title, @article.title)
+- provide(:description, @article.description)
+
+= @article.content.try(:html_safe)

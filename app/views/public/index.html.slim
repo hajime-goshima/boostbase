@@ -1,0 +1,22 @@
+h1 Public#index
+p Find me in app/views/public/index.html.slim
+p トップページです。自由に作り込めます。
+p 記事数：#{Article.count}
+p カテゴリ数：#{Category.count}
+p タグ数：#{Tag.count}
+
+h2 記事一覧
+- Article.all.each do |article|
+  p
+    = link_to article.title, article_path(article)
+
+h2 カテゴリ一覧
+-  Category.all.each do |category|
+  p
+    = link_to category.title, category_path(category)
+
+
+h2 タグ一覧
+- Tag.all.each do |tag|
+  p
+    = link_to tag.title, tag_path(tag)

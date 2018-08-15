@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  root 'public#index'
+  get '/', to: 'public#index', as: 'index'
+  get '/article/:id', to: 'public#article', as: 'article'
+  get '/tag/:id', to: 'public#tag', as: 'tag'
+  get '/category/:id', to: 'public#category', as: 'category'
+
   namespace :admin do
     devise_for :users, class_name: "Admin::User", controllers: {
           confirmations: 'admin/users/confirmations',
